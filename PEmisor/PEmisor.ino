@@ -56,8 +56,8 @@ void loop() {
         delay(50);
       }
       flag1 = 0;
-      cont = 1;
     }
+    cont = 1;
   }
 
   else {                                          //si en estado de flag pasa a 1 se establece una comunicacion
