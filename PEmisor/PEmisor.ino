@@ -74,6 +74,9 @@ void loop() {
         delay(50);
       }
       cont = 0;
+       for (int i = 0; i < 8; i++) {         //Dejo el canal de comunicacion vacio poniendo todas las salidas en 0
+          digitalWrite(LEDP[i], LOW);
+        }
     }
   }
 }
