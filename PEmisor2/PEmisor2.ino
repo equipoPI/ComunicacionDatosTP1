@@ -4,8 +4,17 @@
 #define LEDREC 4               //Pin del LED1 (acuse de recibido)
 #define LEDCON 5               // Pin del LED2 (conexión establecida)
 
-bool isConnected = false;
+#define tiempoC 2000
+#define tiempoR 2000
+
 volatile bool power = true;
+volatile int cont = 1;
+
+String state;
+
+int R = 0;
+int G = 0;
+int B = 0;
 
 void interrupcion1() {
   if (power == true) {
@@ -18,7 +27,9 @@ void interrupcion1() {
 
 
 void interrupcion2() {
-
+   if (power >= 1) {
+    cont = cont + 1 ;
+  }
 }
 
 void setup() {
@@ -34,27 +45,31 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(BotonEncenderApagar) == LOW) { // Si se presiona el botón encender/apagar
-    digitalWrite(LEDREC, HIGH); // Enciende el LED2 (conexión establecida)
-    if (isConnected) {
-      Serial.println("Alternar LED RGB"); // Envia comando al dispositivo 2 para cambiar estado del LED RGB
-    }
-    delay(500); // Debounce
+
+if (Serial.available() > 0) {
+  state=Serial.read();
   }
 
-  if (digitalRead(BotonCambiarColor) == LOW) { // Si se presiona el botón cambiar
-    int r = random(255);
-    int g = random(255);
-    int b = random(255);
-    Serial.print("Cambiar Color RGB: ");
-    Serial.print(r);
-    Serial.print(",");
-    Serial.print(g);
-    Serial.print(",");
-    Serial.println(b);
-    digitalWrite(LEDREC, HIGH); // Enciende el LED1 (acuse de recibido)
-    delay(2000); // Espera 2 segundos
-    digitalWrite(LEDREC, LOW); // Apaga el LED1
-    delay(500); // Debounce
+if (state=="connect"){
+  digitalWrite(LEDCON,HIGH);
+  if (power==true){
+    if (cont>=1){
+      R = random(255);
+      G = random(255);
+      B = random(255);
+      }
+      cont=0;
+      //añadir envio de colores
+    }
+  else {
+    //añadir envio de colore en 0
+    }
+
+//añadir confirmacion de recepcio de envio y llegada
   }
+
+if (state=="disconnect"){
+  digitalWrite(LEDCON,LOW);
+  }
+  
 }
