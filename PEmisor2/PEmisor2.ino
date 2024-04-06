@@ -59,10 +59,28 @@ if (state=="connect"){
       B = random(255);
       }
       cont=0;
-      //añadir envio de colores
+      Serial.print(R);      //envio de colores
+      Serial.println();
+      Serial.print(G);     
+      Serial.println();
+      Serial.print(B);     
+      Serial.println();
+
+      delay(500);                            
     }
   else {
-    //añadir envio de colore en 0
+      R = 0;
+      G = 0;
+      B = 0;
+      
+      Serial.print(R);      //envio de colores 0
+      Serial.println();
+      Serial.print(G);     
+      Serial.println();
+      Serial.print(B);     
+      Serial.println();
+
+      delay(500);   
     }
 
 //añadir confirmacion de recepcio de envio y llegada
