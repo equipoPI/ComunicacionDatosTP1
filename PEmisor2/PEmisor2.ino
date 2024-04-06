@@ -9,8 +9,7 @@
 
 volatile bool power = true;
 volatile int cont = 1;
-
-String state;
+int state;
 
 int R = 0;
 int G = 0;
@@ -39,20 +38,17 @@ void setup() {
   pinMode(LEDREC, OUTPUT);
   pinMode(LEDCON, OUTPUT);
 
-  digitalWrite(LEDCON, LOW); // Inicialmente apagado
+  //digitalWrite(LEDCON, LOW); // Inicialmente apagado
 
   Serial.begin(9600);
 }
 
 void loop() {
-
 if (Serial.available() > 0) {
-  state=Serial.read();
-  }
-
-if (state=="connect"){
-  digitalWrite(LEDCON,HIGH);
-  if (power==true){
+ state=Serial.read();
+ if (state=='C'){
+  digitalWrite(LEDCON,HIGH);}
+  /*if (power==true){
     if (cont>=1){
       R = random(255);
       G = random(255);
@@ -85,9 +81,9 @@ if (state=="connect"){
 
 //añadir confirmacion de recepcio de envio y llegada
   }
-
-if (state=="disconnect"){
+*/
+ if (state=='D'){
   digitalWrite(LEDCON,LOW);
+    }
   }
-  
 }
